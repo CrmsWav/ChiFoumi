@@ -1,0 +1,83 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+}
+
+/* APP */
+
+.App {
+  width: 375px;
+  height: 812px;
+}
+
+/* HEADER */
+
+h1 img {
+  text-align: center;
+  width: 100%;
+  margin-top: -20%;
+  padding-left: 18%;
+}
+
+/* MAIN */
+
+.container {
+  width: 100%;
+}
+
+.joueurVsBot {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.joueurVsBot img {
+  width: 33%;
+}
+
+.boutons {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  margin-top: -35%;
+}
+
+.boutons img {
+  width: 33.33%;
+}
+
+.row {
+  text-align: center;
+}
+
+.row .pfc {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 10%;
+}
+
+main .row .pfc img {
+  width: 33.33%;
+}
+
+.resultats {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.resultats .resultat {
+  width: 30%;
+  margin-top: 10%;
+}
+
+.resultats #gagnerPerdu {
+  width: 70%;
+  margin-top: -25%;
+}
