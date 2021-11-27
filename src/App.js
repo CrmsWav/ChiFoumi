@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./App.css";
-import Res from "./components/Result";
-import Title from "./components/Title";
 import Vs from "./components/Vs";
 
 function App() {
@@ -10,24 +8,74 @@ function App() {
     feuille: "/img/feuille.JPG",
     ciseaux: "/img/ciseaux.JPG",
   };
+  const imageResult = {
+    win: "/img/gagne.PNG",
+    lose: "/img/perdu.PNG",
+    draw: "/img/egalite.png",
+  };
 
   const [choixJoueur, setChoixJoueur] = useState(imagesPfc.feuille);
+  const [choixOrdi, setChoixOrdi] = useState(imagesPfc.ciseaux);
+  const [resultat, setResultat] = useState(imageResult.lose);
+
+  const choixOrdiAleatoire = () => {
+    const choix = Math.floor(Math.random() * 3);
+
+    switch (choix) {
+      case 0:
+        setChoixOrdi(imagesPfc.pierre);
+        break;
+      case 1:
+        setChoixOrdi(imagesPfc.feuille);
+        break;
+      case 2:
+        setChoixOrdi(imagesPfc.ciseaux);
+        break;
+      default:
+        break;
+    }
+  };
+
+  useEffect(() => {
+    if (choixJoueur === choixOrdi) {
+      setResultat(imageResult.draw);
+    } else if (
+      (choixJoueur === imagesPfc.pierre && choixOrdi === imagesPfc.ciseaux) ||
+      (choixJoueur === imagesPfc.feuille && choixOrdi === imagesPfc.pierre) ||
+      (choixJoueur === imagesPfc.ciseaux && choixOrdi === imagesPfc.feuille)
+    ) {
+      setResultat(imageResult.win);
+    } else {
+      setResultat(imageResult.lose);
+    }
+  }, [choixJoueur, choixOrdi]);
 
   const onClickPierre = () => {
     setChoixJoueur(imagesPfc.pierre);
-  };
-  const onClickFeuille = () => {
-    setChoixJoueur(imagesPfc.feuille);
-  };
-  const onClickCiseaux = () => {
-    setChoixJoueur(imagesPfc.ciseaux);
+    choixOrdiAleatoire();
   };
 
-  console.log(choixJoueur);
+  const onClickFeuille = () => {
+    setChoixJoueur(imagesPfc.feuille);
+    choixOrdiAleatoire();
+  };
+
+  const onClickCiseaux = () => {
+    setChoixJoueur(imagesPfc.ciseaux);
+    choixOrdiAleatoire();
+  };
+
+  console.log(" ");
+  console.log("choix joueur :" + choixJoueur);
+  console.log("choix ordi : " + choixOrdi);
+  console.log("resultat : " + resultat);
+
   return (
     <div className="App">
       <header>
-        <Title />
+        <h1>
+          <img src="/img/chifoumi.PNG" alt="logo" />
+        </h1>
       </header>
       <main>
         <div className="container">
@@ -63,13 +111,16 @@ function App() {
               />
               <img
                 id="selectionAdversaire"
-                src={imagesPfc.feuille}
+                src={choixOrdi}
                 alt="selection adversaire"
               />
             </div>
           </div>
 
-          <Res />
+          <div className="resultats">
+            <img src="/img/resultat.PNG" className="resultat" alt="Résultat" />
+            <img src={resultat} id="gagnerPerdu" alt={resultat} />
+          </div>
         </div>
       </main>
       {/* <footer></footer> (à rajouter dans les keyframes de app.css en mode desktop et laptop(invisible en mode mobile)) */}
